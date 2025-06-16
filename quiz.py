@@ -417,8 +417,8 @@ class QuizApp(tk.Tk):
             f"Αποτέλεσμα: {self.score} / {total}\n\n"
             f"Διάρκεια: {duration // 60} min {duration % 60} sec, "
             f"ανά ερώτηση: {duration // total // 60} min {duration // total % 60} sec\n\n"
-            f"{chosen} / 400 ερωτήσεις έχουν επιλεχθεί ({round(chosen/400,4)*100}%)\n"
-            f"{chosen_correct} / {chosen} έχουν απαντηθεί σωστά ({round(chosen_correct/chosen,4)*100}%)"
+            f"{chosen} / 400 ερωτήσεις έχουν επιλεχθεί ({round(100*chosen/400,4)}%)\n"
+            f"{chosen_correct} / {chosen} έχουν απαντηθεί σωστά ({round(100*chosen_correct/chosen,4)}%)"
         )
         tk.Label(result_frame, text=result_text, font=("Arial", 16), justify="center").pack(pady=10)
 
