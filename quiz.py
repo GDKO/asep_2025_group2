@@ -224,7 +224,7 @@ class QuizApp(tk.Tk):
         self.bind("3", lambda event: self.select_option(2))
         self.bind("4", lambda event: self.select_option(3))
 
-        self.next_button = tk.Button(self.quiz_frame, text="Next Question", font=("Arial", 14), command=self.next_question, state="disabled")
+        self.next_button = tk.Button(self.quiz_frame, text="Επόμενη ερώτηση", font=("Arial", 14), command=self.next_question, state="disabled")
         self.next_button.pack(anchor="w", pady=10, padx=20)
         self.bind('<Return>', self.on_enter_pressed)
 
@@ -378,7 +378,7 @@ class QuizApp(tk.Tk):
         canvas.create_line(margin, h - margin, w - margin, h - margin, width=2)  # X axis
 
         # Title
-        canvas.create_text(w // 2, margin // 2, text="Score History", font=("Arial", 14, "bold"))
+        canvas.create_text(w // 2, margin // 2, text="Ιστορικό αποτελεσμάτων", font=("Arial", 14, "bold"))
 
 
     def show_results(self):
@@ -395,6 +395,16 @@ class QuizApp(tk.Tk):
         self.user_info["scores"].append(self.score)
         self.save_user_data()
 
+        chosen = 0
+        for q,t in self.user_info["times_chosen"].items():
+            if t > 0:
+                chosen += 1
+
+        chosen_correct = 0
+        for q,t in self.user_info["correct_answers"].items():
+            if t > 0:
+                chosen_correct += 1
+
         total = len(self.selected_questions)
         duration = int(time.time() - self.quiz_start_time) if self.quiz_start_time else 0
 
@@ -403,10 +413,12 @@ class QuizApp(tk.Tk):
 
         # Score summary
         result_text = (
-            f"Quiz Completed!\n\n"
-            f"Score: {self.score} out of {total}\n"
-            f"Duration: {duration // 60} min {duration % 60} sec\n"
-            f"Per question: {duration // total // 60} min {duration // total % 60} sec"
+            f"Το Quiz ολοκληρώθηκε!\n\n"
+            f"Αποτέλεσμα: {self.score} / {total}\n\n"
+            f"Διάρκεια: {duration // 60} min {duration % 60} sec, "
+            f"ανά ερώτηση: {duration // total // 60} min {duration // total % 60} sec\n\n"
+            f"{chosen} / 400 ερωτήσεις έχουν επιλεχθεί ({round(chosen/400,4)*100}%)\n"
+            f"{chosen_correct} / {chosen} έχουν απαντηθεί σωστά ({round(chosen_correct/chosen,4)*100}%)"
         )
         tk.Label(result_frame, text=result_text, font=("Arial", 16), justify="center").pack(pady=10)
 
@@ -416,10 +428,10 @@ class QuizApp(tk.Tk):
         self.draw_score_plot(canvas, self.user_info["scores"], total)
 
         # Buttons
-        retry_btn = tk.Button(result_frame, text="Try Again", font=("Arial", 14), command=self.create_login_screen)
+        retry_btn = tk.Button(result_frame, text="Επόμενο Quiz", font=("Arial", 14), command=self.create_login_screen)
         retry_btn.pack(pady=5)
 
-        quit_btn = tk.Button(result_frame, text="Quit", font=("Arial", 14), command=self.quit)
+        quit_btn = tk.Button(result_frame, text="Έξοδος", font=("Arial", 14), command=self.quit)
         quit_btn.pack(pady=5)
 
 
