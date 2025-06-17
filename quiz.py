@@ -255,6 +255,8 @@ class QuizApp(tk.Tk):
         q = self.selected_questions[self.current_index]
         q_string = re.sub(r'\d+\.','',q['question'], count=1)
         q_string = q_string.strip()
+        if q_string == "Πώς επιλέγονται τα μέλη των ανεξάρτητων διοικητικών αρχών;":
+            q_string = "Πώς επιλέγονται τα μέλη των συνταγματικά κατοχυρωμένων ανεξάρτητων διοικητικών αρχών;"
         self.question_label.config(text=f"Q{self.current_index + 1}: {q_string}")
         self.var_answer.set(None)
 
