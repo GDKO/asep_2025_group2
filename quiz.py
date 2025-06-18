@@ -228,8 +228,13 @@ class QuizApp(tk.Tk):
         self.next_button.pack(anchor="w", pady=10, padx=20)
         self.bind('<Return>', self.on_enter_pressed)
 
+        self.info_button = tk.Button(self.quiz_frame, text="ℹ️ Επεξήγηση", font=("Arial", 14), command=self.show_explanation, state="disabled")
+        self.info_button.pack(anchor="w", pady=5, padx=20)
+
         self.feedback_label = tk.Label(self.quiz_frame, text="", font=("Arial", 14), wraplength=1000, justify="left")
         self.feedback_label.pack(anchor="w", pady=10, padx=20)
+
+
 
         self.load_question()
 
@@ -245,6 +250,12 @@ class QuizApp(tk.Tk):
         """Selects the option"""
         if 0 <= index < len(self.radio_buttons):
             self.radio_buttons[index].invoke()
+
+    def show_explanation(self):
+        """Display the explanation for the current question"""
+        q = self.selected_questions[self.current_index]
+        explanation = q.get("explanation", "Δεν υπάρχει διαθέσιμη εξήγηση για αυτήν την ερώτηση.")
+        messagebox.showinfo("Εξήγηση", explanation)
 
     def load_question(self):
         """Load the question"""
@@ -269,6 +280,7 @@ class QuizApp(tk.Tk):
 
         self.feedback_label.config(text="")
         self.next_button.config(state="disabled")
+        self.info_button.config(state="disabled")
 
         # Bind radiobuttons for answer checking
         for rb in self.radio_buttons:
@@ -310,6 +322,8 @@ class QuizApp(tk.Tk):
         # Disable radiobuttons after answer
         for rb in self.radio_buttons:
             rb.config(state="disabled")
+
+        self.info_button.config(state="normal")
 
     def next_question(self):
         """Goes to next question"""
