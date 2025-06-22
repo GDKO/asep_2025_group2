@@ -21,6 +21,8 @@
 ---
 ΑΣΕΠ Quiz Group 1 [εδώ](https://github.com/GDKO/asep_2025_group1)
 
+ΑΣΕΠ Quiz Group 3 [εδώ](https://github.com/GDKO/asep_2025_group3)
+
 Για online, υπάρχει το έξοχο [quizor](https://quizor.gr/)
 
 ---
